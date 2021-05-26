@@ -1,9 +1,10 @@
 package com.tomaszligeza.footbase.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Team {
@@ -14,14 +15,11 @@ public class Team {
     private Integer yearOfCreation;
     private String fullAddress;
 
-    public Team() {
-    }
+    @OneToMany
+    @JoinColumn(name = "current_team_id")
+    private Set<Player> players = new HashSet<>();
 
-    public Team(Long id, String teamName, Integer yearOfCreation, String fullAddress) {
-        this.id = id;
-        this.teamName = teamName;
-        this.yearOfCreation = yearOfCreation;
-        this.fullAddress = fullAddress;
+    public Team() {
     }
 
     public Long getId() {
@@ -54,5 +52,13 @@ public class Team {
 
     public void setFullAddress(String fullAddress) {
         this.fullAddress = fullAddress;
+    }
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 }

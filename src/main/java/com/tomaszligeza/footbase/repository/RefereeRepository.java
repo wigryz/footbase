@@ -1,4 +1,4 @@
-package com.tomaszligeza.footbase.repo;
+package com.tomaszligeza.footbase.repository;
 
 import com.tomaszligeza.footbase.model.Referee;
 import org.springframework.data.jpa.repository.JpaRepository;

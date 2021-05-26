@@ -1,31 +1,31 @@
 package com.tomaszligeza.footbase.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Player implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
     private Long Id;
     private String fullName;
     private Date birthDate;
-    @OneToOne
+
+    @ManyToOne
+    @JoinColumn
+    @JsonBackReference
     private Team currentTeam;
-    @OneToOne
+
+    @ManyToOne
+    @JoinColumn
     private Position mainPosition;
 
     public Player() {
-    }
-
-    public Player(Long id, String fullName, Date birthDate, Team currentTeam, Position mainPosition) {
-        Id = id;
-        this.fullName = fullName;
-        this.birthDate = birthDate;
-        this.currentTeam = currentTeam;
-        this.mainPosition = mainPosition;
     }
 
     public Long getId() {
