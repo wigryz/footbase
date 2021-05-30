@@ -8,17 +8,15 @@ import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 public class FootbaseApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(FootbaseApplication.class, args);
 	}
 
 	@Configuration
-	public class ApplicationConfig {
+	static public class ApplicationConfig {
 		@Bean
 		public ModelMapper modelMapper() {
-			ModelMapper modelMapper = new ModelMapper();
-			return modelMapper;
+			return new ModelMapper();
 		}
 	}
 }

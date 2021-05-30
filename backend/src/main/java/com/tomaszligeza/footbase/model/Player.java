@@ -23,9 +23,6 @@ public class Player implements Serializable {
     @JoinColumn
     private Position mainPosition;
 
-    public Player() {
-    }
-
     public Long getId() {
         return Id;
     }
