@@ -1,5 +1,6 @@
 package com.tomaszligeza.footbase.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Team {
 
     @OneToMany
     @JoinColumn(name = "current_team_id")
+    @JsonBackReference
     private List<Player> playerList;
 
     public Team() {
@@ -53,6 +55,14 @@ public class Team {
 
     public void setFullAddress(String fullAddress) {
         this.fullAddress = fullAddress;
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 
 }
