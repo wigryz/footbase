@@ -3,19 +3,20 @@ package com.tomaszligeza.footbase.model.DTOs;
 import java.io.Serializable;
 
 public class TeamInScoreboardDTO implements Serializable {
-    private long id;
+    private Long id;
     private String teamName;
-    private int numberOfGames;
-    private int points;
-    private int wins;
-    private int draws;
-    private int loses;
-    private int goalsScored;
-    private int goalsConceded;
+    private Integer numberOfGames = 0;
+    private Integer points = 0;
+    private Integer wins = 0;
+    private Integer draws = 0;
+    private Integer loses = 0;
+    private Integer goalsScored = 0;
+    private Integer goalsConceded = 0;
 
     public TeamInScoreboardDTO(long id, String teamName) {
         this.id = id;
         this.teamName = teamName;
+
     }
 
     public String getTeamName() {

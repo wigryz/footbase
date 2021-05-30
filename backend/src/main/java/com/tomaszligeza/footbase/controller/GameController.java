@@ -23,7 +23,7 @@ public class GameController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Game>> getAllGames() {
+    public ResponseEntity<List<Game>> getGames() {
         List<Game> games = gameService.findAllGames();
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
