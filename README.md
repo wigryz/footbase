@@ -8,4 +8,5 @@ backend:  spring,
 
 frontend: don't know yet XD.
 
-First sketches of frontend views: https://www.figma.com/file/W5M0Xz5o3B5oEqKa3Tpciu/footbase?node-id=0%3A1.
+First sketches of frontend views: https://www.figma.com/file/W5M0Xz5o3B5oEqKa3Tpciu/footbase?node-id=0%3A1
+FeatureBoard of this project: https://trello.com/b/3iLNe9mk/footbase
