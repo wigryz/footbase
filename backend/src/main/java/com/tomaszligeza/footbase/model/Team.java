@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,10 @@ public class Team {
     private String teamName;
     private Integer yearOfCreation;
     private String fullAddress;
+
+    @OneToMany
+    @JoinColumn(name = "current_team_id")
+    private List<Player> playerList;
 
     public Team() {
     }
