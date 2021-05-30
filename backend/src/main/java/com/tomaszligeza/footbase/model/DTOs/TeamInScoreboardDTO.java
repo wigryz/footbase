@@ -1,8 +1,9 @@
-package com.tomaszligeza.footbase.model.scoreboard;
+package com.tomaszligeza.footbase.model.DTOs;
 
 import java.io.Serializable;
 
-public class ScoreboardTeam implements Serializable {
+public class TeamInScoreboardDTO implements Serializable {
+    private long id;
     private String teamName;
     private int numberOfGames;
     private int points;
@@ -12,10 +13,8 @@ public class ScoreboardTeam implements Serializable {
     private int goalsScored;
     private int goalsConceded;
 
-    public ScoreboardTeam() {
-    }
-
-    public ScoreboardTeam(String teamName) {
+    public TeamInScoreboardDTO(long id, String teamName) {
+        this.id = id;
         this.teamName = teamName;
     }
 
@@ -23,11 +22,7 @@ public class ScoreboardTeam implements Serializable {
         return teamName;
     }
 
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public Integer getNumberOfGames() {
+    public int getNumberOfGames() {
         return numberOfGames;
     }
 
@@ -39,7 +34,7 @@ public class ScoreboardTeam implements Serializable {
         return points;
     }
 
-    public Integer getWins() {
+    public int getWins() {
         return wins;
     }
 
@@ -57,7 +52,7 @@ public class ScoreboardTeam implements Serializable {
         this.points += 1;
     }
 
-    public Integer getLoses() {
+    public int getLoses() {
         return loses;
     }
 
@@ -65,19 +60,23 @@ public class ScoreboardTeam implements Serializable {
         this.loses += loses;
     }
 
-    public Integer getGoalsScored() {
-        return goalsScored;
-    }
-
     public void addGoalsScored(Integer goalsScored) {
         this.goalsScored += goalsScored;
     }
 
-    public Integer getGoalsConceded() {
-        return goalsConceded;
+    public int getGoalsScored() {
+        return goalsScored;
     }
 
     public void addGoalsConceded(Integer goalsConceded) {
         this.goalsConceded += goalsConceded;
+    }
+
+    public int getGoalsConceded() {
+        return goalsConceded;
+    }
+
+    public long getId() {
+        return id;
     }
 }

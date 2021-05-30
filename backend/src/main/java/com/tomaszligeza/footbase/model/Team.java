@@ -15,10 +15,6 @@ public class Team {
     private Integer yearOfCreation;
     private String fullAddress;
 
-    @OneToMany
-    @JoinColumn(name = "current_team_id")
-    private Set<Player> players = new HashSet<>();
-
     public Team() {
     }
 
@@ -54,11 +50,4 @@ public class Team {
         this.fullAddress = fullAddress;
     }
 
-    public Set<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Set<Player> players) {
-        this.players = players;
-    }
 }

@@ -1,6 +1,7 @@
 package com.tomaszligeza.footbase.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,7 +17,6 @@ public class Player implements Serializable {
 
     @ManyToOne
     @JoinColumn
-    @JsonBackReference
     private Team currentTeam;
 
     @ManyToOne

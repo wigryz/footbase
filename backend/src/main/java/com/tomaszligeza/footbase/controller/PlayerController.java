@@ -4,9 +4,7 @@ import com.tomaszligeza.footbase.model.Player;
 import com.tomaszligeza.footbase.service.PlayerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,10 @@ public class PlayerController {
     public ResponseEntity<List<Player>> getAllPlayers() {
         List<Player> players = playerService.findAllPlayers();
         return new ResponseEntity<>(players, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public void addPlayer(@RequestBody Player player) {
+        playerService.addPlayer(player);
     }
 }
