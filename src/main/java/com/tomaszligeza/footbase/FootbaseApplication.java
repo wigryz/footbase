@@ -9,5 +9,4 @@ public class FootbaseApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FootbaseApplication.class, args);
 	}
-
 }
