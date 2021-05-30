@@ -10,7 +10,7 @@ import java.sql.Date;
 @Entity
 public class Player implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String fullName;
     private Date birthDate;

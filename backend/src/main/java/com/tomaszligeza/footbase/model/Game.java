@@ -7,7 +7,7 @@ import java.sql.Date;
 @Table(name="game")
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private Integer hostScore;
     private Integer guestScore;

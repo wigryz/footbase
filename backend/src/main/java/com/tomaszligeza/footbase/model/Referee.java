@@ -7,7 +7,7 @@ import java.sql.Date;
 @Entity
 public class Referee implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fullName;
     private Date birthDate;
