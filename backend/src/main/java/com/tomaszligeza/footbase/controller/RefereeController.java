@@ -1,10 +1,14 @@
 package com.tomaszligeza.footbase.controller;
 
+import com.tomaszligeza.footbase.model.DTOs.PlayerDTO;
 import com.tomaszligeza.footbase.model.DTOs.RefereeDTO;
+import com.tomaszligeza.footbase.model.Player;
 import com.tomaszligeza.footbase.model.Referee;
 import com.tomaszligeza.footbase.service.GameService;
 import com.tomaszligeza.footbase.service.RefereeService;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +29,15 @@ public class RefereeController {
         this.refereeService = refereeService;
         this.gameService = gameService;
         this.modelMapper = modelMapper;
+
+        addCustomMappingToModelMapper();
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<RefereeDTO>> getReferees() {
         List<Referee> referees = refereeService.findAllReferee();
         return new ResponseEntity<>(referees.stream()
-                                            .map(this::convertToDTO)
+                                            .map(referee -> modelMapper.map(referee, RefereeDTO.class))
                                             .collect(Collectors.toList()),
                                     HttpStatus.OK);
     }
@@ -42,13 +48,20 @@ public class RefereeController {
         refereeService.addReferee(referee);
     }
 
-    private RefereeDTO convertToDTO(Referee referee) {
-        RefereeDTO refereeDTO = modelMapper.map(referee, RefereeDTO.class);
-        refereeDTO.setNumberOfRefereedMatches(gameService.countByRefereeId(referee.getId()));
-        return refereeDTO;
-    }
-
-    private Referee convertToEntity(RefereeDTO refereeDTO) {
-        return modelMapper.map(refereeDTO, Referee.class);
+    private void addCustomMappingToModelMapper() {
+        Converter<Referee, RefereeDTO> refereeRefereeDTOConverter = new Converter<Referee, RefereeDTO>() {
+            @Override
+            public RefereeDTO convert(MappingContext<Referee, RefereeDTO> mappingContext) {
+                Referee s = mappingContext.getSource();
+                RefereeDTO d = mappingContext.getDestination() != null ?
+                        mappingContext.getDestination() : new RefereeDTO();
+                d.setId(s.getId());
+                d.setFullName(s.getFullName());
+                d.setBirthDate(s.getBirthDate());
+                d.setNumberOfRefereedMatches(gameService.countByRefereeId(s.getId()));
+                return d;
+            }
+        };
+        modelMapper.addConverter(refereeRefereeDTOConverter);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RefereeService {
@@ -23,9 +24,8 @@ public class RefereeService {
 
     public List<Referee> findAllReferee() {return refereeRepository.findAll(); }
 
-    public Referee findRefereeById(Long id) {
-        return refereeRepository.findRefereeById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Object by id" + id + " was not found"));
+    public Optional<Referee> findById(Long id) {
+        return refereeRepository.findById(id);
     }
 
     public Referee updateReferee(Referee referee) {
@@ -33,7 +33,7 @@ public class RefereeService {
     }
 
     public String deleteReferee(Long Id) {
-        refereeRepository.deleteRefereeById(Id);
+        refereeRepository.deleteById(Id);
         return "ok";
     }
 }

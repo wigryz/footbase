@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/player")
@@ -34,9 +35,12 @@ public class PlayerController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Player>> getPlayers() {
+    public ResponseEntity<List<PlayerDTO>> getPlayers() {
         List<Player> players = playerService.findAllPlayers();
-        return new ResponseEntity<>(players, HttpStatus.OK);
+        return new ResponseEntity<>(players.stream()
+                                           .map(player -> modelMapper.map(player, PlayerDTO.class))
+                                           .collect(Collectors.toList()),
+                                    HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -45,11 +49,12 @@ public class PlayerController {
     }
 
     private void addCustomMappingToModelMapper() {
-        Converter<PlayerDTO, Player> playerDTOToPlayerConverter = new Converter<PlayerDTO, Player>() {
+        Converter<PlayerDTO, Player> playerDTOPlayerConverter = new Converter<PlayerDTO, Player>() {
             @Override
             public Player convert(MappingContext<PlayerDTO, Player> mappingContext) {
                 PlayerDTO s = mappingContext.getSource();
-                Player d = mappingContext.getDestination() != null ? mappingContext.getDestination() : new Player();
+                Player d = mappingContext.getDestination() != null ?
+                        mappingContext.getDestination() : new Player();
                 d.setFullName(s.getFullName());
                 d.setBirthDate(s.getBirthDate());
                 d.setCurrentTeam(teamService.findById(s.getCurrentTeamId()).orElse(null));
@@ -57,6 +62,21 @@ public class PlayerController {
                 return d;
             }
         };
-        modelMapper.addConverter(playerDTOToPlayerConverter);
+        modelMapper.addConverter(playerDTOPlayerConverter);
+
+        Converter<Player, PlayerDTO> playerPlayerDTOConverter = new Converter<Player, PlayerDTO>() {
+            @Override
+            public PlayerDTO convert(MappingContext<Player, PlayerDTO> mappingContext) {
+                Player s = mappingContext.getSource();
+                PlayerDTO d = mappingContext.getDestination() != null ?
+                        mappingContext.getDestination() : new PlayerDTO();
+                d.setFullName(s.getFullName());
+                d.setBirthDate(s.getBirthDate());
+                d.setCurrentTeamId(s.getCurrentTeam().getId());
+                d.setMainPositionId(s.getMainPosition().getId());
+                return d;
+            }
+        };
+        modelMapper.addConverter(playerPlayerDTOConverter);
     }
 }
