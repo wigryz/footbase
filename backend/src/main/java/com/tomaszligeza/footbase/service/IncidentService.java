@@ -2,6 +2,7 @@ package com.tomaszligeza.footbase.service;
 
 import com.tomaszligeza.footbase.model.Incident;
 import com.tomaszligeza.footbase.repository.IncidentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,11 +11,12 @@ import java.util.List;
 public class IncidentService {
     private final IncidentRepository incidentRepository;
 
+    @Autowired
     public IncidentService(IncidentRepository incidentRepository) {
         this.incidentRepository = incidentRepository;
     }
 
-    public List<Incident> getIncidents() {
+    public List<Incident> getAllIncidents() {
         return incidentRepository.findAll();
     }
 

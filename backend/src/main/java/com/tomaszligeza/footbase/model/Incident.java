@@ -1,9 +1,10 @@
 package com.tomaszligeza.footbase.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Incident {
+public class Incident implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,8 +20,7 @@ public class Incident {
     @JoinColumn
     private Player player;
 
-    public Incident() {
-    }
+    private Long minute;
 
     public Long getId() {
         return id;
@@ -36,5 +36,29 @@ public class Incident {
 
     public void setIncidentType(IncidentType incidentType) {
         this.incidentType = incidentType;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Long getMinute() {
+        return minute;
+    }
+
+    public void setMinute(Long minute) {
+        this.minute = minute;
     }
 }

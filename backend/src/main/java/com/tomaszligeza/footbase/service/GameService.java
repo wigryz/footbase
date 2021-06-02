@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GameService {
@@ -25,5 +26,9 @@ public class GameService {
 
     public Integer countByRefereeId(Long id) {
         return gameRepository.countByRefereeId(id);
+    }
+
+    public Optional<Game> findGameById(Long id) {
+        return gameRepository.findById(id);
     }
 }

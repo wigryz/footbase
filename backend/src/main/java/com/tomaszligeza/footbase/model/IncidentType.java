@@ -1,18 +1,16 @@
 package com.tomaszligeza.footbase.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class IncidentType {
+public class IncidentType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String incidentName;
-
-    public IncidentType() {
-    }
 
     public Long getId() {
         return id;
