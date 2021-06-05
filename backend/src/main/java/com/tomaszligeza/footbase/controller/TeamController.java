@@ -26,6 +26,15 @@ public class TeamController {
         return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Team> getTeamById(@PathVariable Long id) {
+        Team team = teamService.findById(id).orElseThrow();
+        if(team == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(team, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public Team addTeam(@RequestBody Team team) {
         team.setPlayerList(new ArrayList<>());
