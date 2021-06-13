@@ -1,16 +1,17 @@
 import './App.css';
-import { TeamList } from './TeamList';
+import { Team } from './Team';
+import {Scoreboard} from "./Scoreboard";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello my friend!</h1>
-        <div>
-          <TeamList/>
-        </div>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" children={<Scoreboard />} />
+        <Route exact path="/team/:id" children={<Team />} />
+      </Switch>
+    </Router>
   );
 }
 

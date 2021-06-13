@@ -29,4 +29,8 @@ public class PlayerService {
     public Optional<Player> findPlayerById(Long id) {
         return playerRepository.findById(id);
     }
+
+    public List<Player> findAllPlayersByCurrentTeamId(Long id) {
+        return playerRepository.findAllByCurrentTeamId(id);
+    }
 }

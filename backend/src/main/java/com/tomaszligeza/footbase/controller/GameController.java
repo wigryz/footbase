@@ -3,6 +3,7 @@ package com.tomaszligeza.footbase.controller;
 
 import com.tomaszligeza.footbase.model.DTOs.GameDTODown;
 import com.tomaszligeza.footbase.model.DTOs.GameDTOUp;
+import com.tomaszligeza.footbase.model.DTOs.PlayerDTO;
 import com.tomaszligeza.footbase.model.Game;
 import com.tomaszligeza.footbase.service.GameService;
 import com.tomaszligeza.footbase.service.RefereeService;
@@ -43,6 +44,18 @@ public class GameController {
                                     HttpStatus.OK);
     }
 
+
+    @GetMapping("/byClubId/{id}")
+    @ResponseBody
+    public ResponseEntity<List<GameDTOUp>> getGames(@PathVariable Long id) {
+        List<Game> games = gameService.findAllByHostTeamId(id);
+        games.addAll(gameService.findAllByGuestTeamId(id));
+        return new ResponseEntity<>(games.stream()
+                .map(game -> modelMapper.map(game, GameDTOUp.class))
+                .collect(Collectors.toList()),
+                HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public Game addGame(@RequestBody GameDTODown gameDTODown) {
         Game game = modelMapper.map(gameDTODown, Game.class);
@@ -64,7 +77,7 @@ public class GameController {
                 d.setGuestTeamId(s.getGuestTeam().getId());
                 d.setRefereeId(s.getReferee().getId());
                 d.setHostTeamName(s.getHostTeam().getTeamName());
-                d.setGuestTeamName(s.getHostTeam().getTeamName());
+                d.setGuestTeamName(s.getGuestTeam().getTeamName());
                 d.setRefereeFullName(s.getReferee().getFullName());
                 return d;
             }
@@ -82,9 +95,6 @@ public class GameController {
                 d.setHostScore(s.getHostScore());
                 d.setGuestScore(s.getGuestScore());
                 d.setGameDate(s.getGameDate());
-
-                // HERE I SHOULD CHECK IF IT IS NULL OR NOT
-                //  TYPE MAP SHOULD BE USED INSTEAD OF CONVERTER
 
                 d.setHostTeam(teamService.findById(s.getHostTeamId()).orElseThrow());
                 d.setGuestTeam(teamService.findById(s.getGuestTeamId()).orElseThrow());

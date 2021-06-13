@@ -1,9 +1,7 @@
 package com.tomaszligeza.footbase.controller;
 
 import com.tomaszligeza.footbase.model.DTOs.PlayerDTO;
-import com.tomaszligeza.footbase.model.DTOs.RefereeDTO;
 import com.tomaszligeza.footbase.model.Player;
-import com.tomaszligeza.footbase.model.Referee;
 import com.tomaszligeza.footbase.service.PlayerService;
 import com.tomaszligeza.footbase.service.PositionService;
 import com.tomaszligeza.footbase.service.TeamService;
@@ -35,12 +33,23 @@ public class PlayerController {
     }
 
     @GetMapping("/all")
+    @ResponseBody
     public ResponseEntity<List<PlayerDTO>> getPlayers() {
         List<Player> players = playerService.findAllPlayers();
         return new ResponseEntity<>(players.stream()
                                            .map(player -> modelMapper.map(player, PlayerDTO.class))
                                            .collect(Collectors.toList()),
                                     HttpStatus.OK);
+    }
+
+    @GetMapping("/byClubId/{id}")
+    @ResponseBody
+    public ResponseEntity<List<PlayerDTO>> getPlayers(@PathVariable Long id) {
+        List<Player> players = playerService.findAllPlayersByCurrentTeamId(id);
+        return new ResponseEntity<>(players.stream()
+                .map(player -> modelMapper.map(player, PlayerDTO.class))
+                .collect(Collectors.toList()),
+                HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -73,7 +82,9 @@ public class PlayerController {
                 d.setFullName(s.getFullName());
                 d.setBirthDate(s.getBirthDate());
                 d.setCurrentTeamId(s.getCurrentTeam().getId());
+                d.setCurrentTeamName(s.getCurrentTeam().getTeamName());
                 d.setMainPositionId(s.getMainPosition().getId());
+                d.setMainPositionName(s.getMainPosition().getPositionName());
                 return d;
             }
         };

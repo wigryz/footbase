@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+
+body {
+  font-family: "Quicksand", sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  color: #4d4d4d;
+}
+
+#title {
+  text-align: center;
+}
+
+#team {
+  background: #ddd0cb;
+  margin: auto;
+  padding: 15px;
+  width: 400px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+#team:hover {
+  border-collapse: collapse;
+  border: 3px solid #ff976a;
+}
+
+#header-center {
+  text-align: center;
+}

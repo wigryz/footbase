@@ -31,4 +31,12 @@ public class GameService {
     public Optional<Game> findGameById(Long id) {
         return gameRepository.findById(id);
     }
+
+    public List<Game> findAllByHostTeamId(Long id) {
+        return gameRepository.findAllByHostTeamId(id);
+    }
+
+    public List<Game> findAllByGuestTeamId(Long id) {
+        return gameRepository.findAllByGuestTeamId(id);
+    }
 }

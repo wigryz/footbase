@@ -1,3 +1,7 @@
+# pdf & word files
+*.odt
+PROJEKT_ZALICZENIOWY_TOMASZ_LIGEZA.pdf
+
 # Compiled class file
 *.class
 
